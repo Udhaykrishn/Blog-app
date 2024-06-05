@@ -1,26 +1,28 @@
 import { Injectable } from "@nestjs/common";
-import { CreateBlogDto, UpdateBlogDto } from "./dto";
-import { clerkClient } from "@clerk/clerk-sdk-node";
+import { CreateBlogDto, UpdateBlogDto } from "./dto";  
+import { BlogRepository } from "./repositorys/blog.repo";
 
 @Injectable()
 export class BlogsService {
-  createBlog(createDto: CreateBlogDto) {
-    return createDto;
+  constructor(private readonly blogRepository: BlogRepository) {}
+
+  async createBlog(createDto: CreateBlogDto, id: number) {
+    return this.blogRepository.create(createDto, id);
   }
 
-  async getBlog() {
-    return "hello world"
+  async getBlogs() {
+    return this.blogRepository.findAll();
   }
 
-  getBlogById(id: string) {
-    return id;
+  async findAllBlogsByUserID(id: string) {
+    return this.blogRepository.findAllBlogsByUserID(+id);
   }
 
-  updateBlog(id: string, updateDto: UpdateBlogDto) {
-    return { id, updateDto };
+  async updateBlog(id: number, updateDto: UpdateBlogDto) {
+    return this.blogRepository.update(id, updateDto);
   }
 
-  deleteBlog(id: string) {
-    return id;
+  async deleteBlog(id: number) {
+    return this.blogRepository.delete(id);
   }
 }

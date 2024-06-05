@@ -1,4 +1,10 @@
-import { IsString, IsOptional, IsNotEmpty } from "class-validator";
+import {
+  IsString,
+  IsOptional,
+  IsNotEmpty,
+  isInt,
+  IsInt,
+} from "class-validator";
 export class CreateBlogDto {
   @IsString()
   @IsOptional()
@@ -9,7 +15,6 @@ export class CreateBlogDto {
   title: string;
 
   @IsString()
-  @IsOptional()
   description: string;
 }
 
@@ -25,4 +30,5 @@ export class UpdateBlogDto {
   @IsString()
   @IsOptional()
   description?: string;
+
 }
