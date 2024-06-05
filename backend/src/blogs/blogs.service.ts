@@ -6,7 +6,7 @@ import { BlogRepository } from "./repositorys/blog.repo";
 export class BlogsService {
   constructor(private readonly blogRepository: BlogRepository) {}
 
-  async createBlog(createDto: CreateBlogDto, id: number) {
+  async createBlog(createDto: CreateBlogDto, id: string) {
     return this.blogRepository.create(createDto, id);
   }
 

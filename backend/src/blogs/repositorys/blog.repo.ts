@@ -8,13 +8,13 @@ export class BlogRepository {
 
   async create(
     data: Omit<Prisma.BlogCreateInput, "user">,
-    userId: number
+    userId: string
   ): Promise<Blog> {
     return this.prisma.blog.create({
       data: {
         ...data,
         user: {
-          connect: { id: userId },
+          connect: { userId: userId },
         },
       },
     });
