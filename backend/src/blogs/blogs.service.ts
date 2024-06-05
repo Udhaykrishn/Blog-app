@@ -15,7 +15,7 @@ export class BlogsService {
   }
 
   async findAllBlogsByUserID(id: string) {
-    return this.blogRepository.findAllBlogsByUserID(+id);
+    return this.blogRepository.findAllBlogsByUserID(id);
   }
 
   async updateBlog(id: number, updateDto: UpdateBlogDto) {

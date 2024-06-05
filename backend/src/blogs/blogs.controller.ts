@@ -6,6 +6,7 @@ import {
   Delete,
   Body,
   Param,
+  ParseIntPipe,
 } from "@nestjs/common";
 import { BlogsService } from "./blogs.service";
 import { CreateBlogDto, UpdateBlogDto } from "./dto";
@@ -15,8 +16,11 @@ export class BlogsController {
   constructor(private readonly blogsService: BlogsService) {}
 
   @Post(":id")
-  createBlog(@Param("id") id: string, @Body() createDto: CreateBlogDto) {
-    return this.blogsService.createBlog(createDto, +id);
+  createBlog(
+    @Param("id", ParseIntPipe) id: number,
+    @Body() createDto: CreateBlogDto
+  ) {
+    return this.blogsService.createBlog(createDto, id);
   }
 
   @Get()
@@ -30,12 +34,15 @@ export class BlogsController {
   }
 
   @Patch(":id")
-  updateBlog(@Param("id") id: string, @Body() updateBlogDto: UpdateBlogDto) {
+  updateBlog(
+    @Param("id", ParseIntPipe) id: number,
+    @Body() updateBlogDto: UpdateBlogDto
+  ) {
     return this.blogsService.updateBlog(+id, updateBlogDto);
   }
 
   @Delete(":id")
-  deleteBlog(@Param("id") id: string) {
-    return this.blogsService.deleteBlog(+id);
+  deleteBlog(@Param("id", ParseIntPipe) id: number) {
+    return this.blogsService.deleteBlog(id);
   }
 }

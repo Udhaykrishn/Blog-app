@@ -1,6 +1,5 @@
 import { PrismaService } from "./../../prisma/prisma.service";
 import { Injectable } from "@nestjs/common";
-import { CreateBlogDto, UpdateBlogDto } from "../dto";
 import { Blog, Prisma } from "@prisma/client";
 
 @Injectable()
@@ -22,13 +21,15 @@ export class BlogRepository {
   }
 
   async findAll(): Promise<Blog[]> {
-    return this.prisma.blog.findMany();
+    return this.prisma.blog.findMany({
+      include: { user: true },
+    });
   }
 
-  async findAllBlogsByUserID(userID: number): Promise<Blog[]> {
+  async findAllBlogsByUserID(userID: string): Promise<Blog[]> {
     return this.prisma.blog.findMany({
       where: {
-        user: { id: userID },
+        user: { userId: userID },
       },
       include: { user: true },
     });

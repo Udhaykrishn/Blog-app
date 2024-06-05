@@ -11,8 +11,6 @@ import { Webhook } from "svix";
 import { UserService } from "./user/user.service";
 import { ConfigService } from "@nestjs/config";
 import { ClerkUserCreatedEvent, ClerkWebhookEvent } from "./types";
-import { GetUser } from "./decorator/get-user.decorator";
-import * as session from "express-session";
 
 @Controller("api/webhooks")
 export class AppController {
@@ -49,8 +47,6 @@ export class AppController {
 
       if (evt.type === "user.created") {
         const userData = evt.data as ClerkUserCreatedEvent;
-        req.session.usreId = userData.id;
-        // console.log("auth", req.session.usreId);
 
         if (
           !userData.email_addresses ||
