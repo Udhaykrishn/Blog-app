@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import { auth } from '@clerk/nextjs/server'
-import { currentUser } from '@clerk/nextjs/server'
+
 
 import { ThemeToggle } from '@/components/theme-toggle'
 import { Button } from '@/components/ui/button'
