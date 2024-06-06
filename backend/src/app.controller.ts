@@ -85,7 +85,6 @@ export class AppController {
       response.status(200).json({ success: true, message: "Event processed" });
     } catch (err) {
       this.logger.error(`Error processing webhook: ${err.message}`, err.stack);
-      throw new BadRequestException(err.message);
     }
   }
 }
