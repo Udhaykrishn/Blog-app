@@ -1,7 +1,10 @@
 import Link from 'next/link'
 import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import { auth } from '@clerk/nextjs/server'
-
+import { LuLayoutDashboard } from 'react-icons/lu'
+import { FaBlogger } from 'react-icons/fa'
+import { IoHomeOutline } from 'react-icons/io5'
+import { FcAbout } from "react-icons/fc";
 
 import { ThemeToggle } from '@/components/theme-toggle'
 import { Button } from '@/components/ui/button'
@@ -14,17 +17,32 @@ export default function Header() {
         <ul className='flex gap-10 text-sm font-medium'>
           {userId ? (
             <>
-              <li>
-                <Link href={'/dashboard'}>Dashboard</Link>
+              <li className='w-[100px] h-full text-xl'>
+                <Link href={'/dashboard'}>
+                  <LuLayoutDashboard />
+                  Dashboard
+                </Link>
               </li>
-              <li>
-                <Link href={'/blogs'}>Blogs</Link>
+              <li className='w-[100px] h-full text-xl'>
+                <Link href={'/blogs'}>
+                  <FaBlogger />
+                  Blogs
+                </Link>
+              </li>
+              <li className='w-[100px] h-full text-xl'>
+                <Link href={'/me'}>
+                  <FcAbout />
+                  Me
+                </Link>
               </li>
             </>
           ) : (
             <>
-              <li>
-                <Link href={'/hom'}>Home</Link>
+              <li className='w-[100px] h-full text-xl'>
+                <Link href={'/'}>
+                  <IoHomeOutline />
+                  Home
+                </Link>
               </li>
             </>
           )}

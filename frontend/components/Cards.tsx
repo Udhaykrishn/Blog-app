@@ -11,6 +11,8 @@ import {
   CardTitle
 } from '@/components/ui/card'
 import { IBlog, IUser } from '@/store/types/IBlog'
+import { ProfileAvatar } from './ProfileAvatar'
+import { FaBookReader } from 'react-icons/fa'
 
 type CardsProps = {
   user: IUser
@@ -22,6 +24,7 @@ export default function Cards({ user, blog, profileLink }: CardsProps) {
   return (
     <Card className='mt-3 w-[350px] md:w-[600px]'>
       <CardHeader>
+        <ProfileAvatar image_url={user.image_url} name={user.firstName} />
         <CardTitle>
           <Button onClick={() => profileLink(user.userId)} variant={'link'}>
             {user.firstName}
@@ -32,6 +35,7 @@ export default function Cards({ user, blog, profileLink }: CardsProps) {
       <CardContent></CardContent>
       <CardFooter className='flex justify-between'>
         <Button onClick={() => alert(blog.description)} variant='default'>
+          <FaBookReader />
           Read
         </Button>
       </CardFooter>

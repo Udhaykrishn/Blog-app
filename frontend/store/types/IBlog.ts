@@ -1,10 +1,16 @@
+interface ICount {
+  blogs: number
+}
+
 export interface IUser {
   userId: string
   firstName: string
   lastName: string
   email: string
-  image_url:string;
+  image_url: string
+  _count: ICount
 }
+
 export interface IBlog {
   id: string
   title: string
