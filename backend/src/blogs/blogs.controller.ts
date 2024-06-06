@@ -17,7 +17,6 @@ export class BlogsController {
 
   @Post(":id")
   createBlog(@Param("id") id: string, @Body() createDto: CreateBlogDto) {
-    console.log(id)
     return this.blogsService.createBlog(createDto, id);
   }
 

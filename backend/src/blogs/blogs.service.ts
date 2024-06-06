@@ -7,7 +7,7 @@ export class BlogsService {
   constructor(private readonly blogRepository: BlogRepository) {}
 
   async createBlog(createDto: CreateBlogDto, id: string) {
-    return this.blogRepository.create(createDto, id);
+    return  this.blogRepository.create(createDto, id);
   }
 
   async getBlogs() {
