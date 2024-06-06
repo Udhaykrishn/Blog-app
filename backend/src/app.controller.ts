@@ -73,6 +73,7 @@ export class AppController {
           firstName: userData.first_name || null,
           lastName: userData.last_name || null,
           email: email,
+          image_url: userData.image_url || null,
         });
 
         this.logger.log(`User created: ${userData.id} - ${email}`);

@@ -14,6 +14,7 @@ model User {
   firstName String?
   lastName  String?
   email     String  @unique
+  image_url String?
 
   blogs Blog[]
 }
