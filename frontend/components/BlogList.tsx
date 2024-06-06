@@ -1,9 +1,13 @@
 'use client'
 import { useEffect } from 'react'
 import { useStore } from '@/store/useStore'
-import UserList from './UserList'
+import Cards from './Cards'
 
-const BlogList = () => {
+type ProfileProps = {
+  profileLink: (userId: string) => void
+}
+
+const BlogList = ({ profileLink }: ProfileProps) => {
   const { blogs, fetchAllBlogs } = useStore()
 
   useEffect(() => {
@@ -11,18 +15,10 @@ const BlogList = () => {
   }, [fetchAllBlogs])
 
   return (
-    <div>
+    <div className='flex h-screen w-full items-center justify-center'>
       <ul>
         {blogs.map(blog => (
-          <li key={blog.id}>
-            <h3>{blog.title}</h3>
-            <p>{blog.description}</p>
-            <p>Created At: {new Date(blog.createdAt).toLocaleString()}</p>
-            <p>Created At: {new Date(blog.updatedAt).toLocaleString()}</p>
-            <p>
-              <UserList blog={blog.user} />
-            </p>
-          </li>
+          <Cards user={blog.user} blog={blog} profileLink={profileLink} />
         ))}
       </ul>
     </div>

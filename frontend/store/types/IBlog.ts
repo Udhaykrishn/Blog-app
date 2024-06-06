@@ -3,8 +3,9 @@ export interface IUser {
   firstName: string
   lastName: string
   email: string
+  image_url:string;
 }
-interface IBlog {
+export interface IBlog {
   id: string
   title: string
   description: string
