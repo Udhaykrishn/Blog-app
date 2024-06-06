@@ -18,7 +18,7 @@ export interface IBlog {
   userId: string
   createdAt: string
   updatedAt: string
-  user: IUser
+  user?: IUser
 }
 
 export type StoreBlog = {

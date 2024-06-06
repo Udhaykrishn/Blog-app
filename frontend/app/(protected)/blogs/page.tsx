@@ -1,9 +1,11 @@
 import React from 'react'
+import { auth } from '@clerk/nextjs/server'
 
 const page = () => {
+  const { userId } = auth()
   return (
     <>
-      <h2 className='container'>Blogs</h2>
+      <h2 className='container'>Blogs {userId}</h2>
     </>
   )
 }
