@@ -5,7 +5,8 @@ import { ClerkProvider } from '@clerk/nextjs'
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import { ThemeProvider } from '@/components/theme-provider'
-
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 import './globals.css'
 
@@ -29,6 +30,11 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <body className={`flex min-h-screen flex-col ${inter.className}`}>
+          <ToastContainer
+            position='bottom-left'
+            autoClose={3000}
+            theme='dark'
+          />
           <ThemeProvider
             enableSystem
             attribute='class'

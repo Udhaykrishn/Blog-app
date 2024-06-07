@@ -12,7 +12,6 @@ const page = () => {
 
   return (
     <div className='container'>
-      <h1>Dashboard</h1>
       <h2>All Blogs</h2>
 
       <BlogList profileLink={navigateToProfile} />
