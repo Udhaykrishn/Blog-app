@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import { FaBookReader, FaEdit, FaTrashAlt } from 'react-icons/fa'
 import Loading from './make/[userId]/loading'
-import DeleteBlogDialog from '@/components/DeleteAlert'
+import DeletePopup from '@/components/DeleteAlert'
 
 const Page = () => {
   const { userId } = useAuth()
@@ -23,7 +23,7 @@ const Page = () => {
     }
     setLoading(true)
     fetchData(userId)
-  }, [])
+  }, [getAllBlogById, userId])
 
   const deletePost = async () => {
     return <h2>Hello world</h2>
@@ -45,7 +45,7 @@ const Page = () => {
           <div className='mr-2 text-2xl'>
             <FaEdit />
           </div>
-          Make Blog
+          Make Post
         </Button>
       </div>
       <Suspense fallback={<Loading />}>
@@ -82,7 +82,7 @@ const Page = () => {
                     >
                       Delete <FaTrashAlt className='ml-2' />
                     </Button> */}
-                    <DeleteBlogDialog blogId={data.id} />
+                    <DeletePopup id={data.id} />
                   </div>
                 </div>
               </div>

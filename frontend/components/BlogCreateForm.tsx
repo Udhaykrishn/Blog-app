@@ -1,11 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import { z } from 'zod'
-import {
-  EditorState,
-  convertToRaw,
-  convertFromRaw
-} from 'draft-js'
+import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
 import TipTapEditor from './TipTapEditor'
 import axios from 'axios'
 import { useParams, useRouter } from 'next/navigation'

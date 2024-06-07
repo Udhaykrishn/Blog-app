@@ -1,43 +1,49 @@
+import React, { useState } from 'react'
+import axios from 'axios'
+import { toast } from 'react-toastify'
 import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
+  AlertDialogTrigger,
   AlertDialogContent,
-  AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger
-} from '@/components/ui/alert-dialog'
-import { Button } from '@/components/ui/button'
-import axios from 'axios'
-import { toast } from 'react-toastify'
+  AlertDialogFooter
+} from './ui/alert-dialog'
+import { Button } from './ui/button'
+import { useRouter } from 'next/navigation'
 
-function DeletePopup(userId: string) {
-  const deletePost = async () => {
+const DeleteBlogDialog = ({ blogId }: { blogId: string }) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const router = useRouter()
+  const handleDelete = async () => {
     try {
-      const res = await axios.delete(`http://localhost:3000/${userId}`)
-      if(res.data){
-        toast.success("Delete Success")
-      }
-    } catch (error: any) {
-      console.error('Error for Fetching', error.message)
+      await axios.delete(`http://localhost:3000/blogs/${blogId}`)
+      router.refresh()
+      toast.success('Blog deleted successfully')
+      setIsDialogOpen(false)
+    } catch (error) {
+      toast.error('Error deleting blog')
+      console.error('Error deleting blog:', error)
     }
   }
+
   return (
-    <AlertDialog>
+    <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <AlertDialogTrigger asChild>
-        <Button className='hover:bg-red-500 hover:text-white' variant='outline'>
-          Delete
+        <Button variant='outline' className='hover:bg-red-500 hover:text-white'>
+          Delete Blog
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction>
-            <Button onClick={() => deletePost}></Button>
+            <Button onClick={handleDelete}>Yes</Button>
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
@@ -45,4 +51,4 @@ function DeletePopup(userId: string) {
   )
 }
 
-export default DeletePopup
+export default DeleteBlogDialog
