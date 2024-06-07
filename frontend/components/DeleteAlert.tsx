@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react'
 import axios from 'axios'
 import { toast } from 'react-toastify'
@@ -13,6 +14,7 @@ import {
 } from './ui/alert-dialog'
 import { Button } from './ui/button'
 import { useRouter } from 'next/navigation'
+import { FaTrashAlt } from 'react-icons/fa'
 
 const DeleteBlogDialog = ({ blogId }: { blogId: string }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -20,8 +22,8 @@ const DeleteBlogDialog = ({ blogId }: { blogId: string }) => {
   const handleDelete = async () => {
     try {
       await axios.delete(`http://localhost:3000/blogs/${blogId}`)
-      router.refresh()
       toast.success('Blog deleted successfully')
+      window.location.reload()
       setIsDialogOpen(false)
     } catch (error) {
       toast.error('Error deleting blog')
@@ -33,7 +35,7 @@ const DeleteBlogDialog = ({ blogId }: { blogId: string }) => {
     <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <AlertDialogTrigger asChild>
         <Button variant='outline' className='hover:bg-red-500 hover:text-white'>
-          Delete Blog
+          <FaTrashAlt className='mr-2' />  Delete
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>

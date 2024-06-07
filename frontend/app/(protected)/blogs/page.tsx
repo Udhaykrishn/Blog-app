@@ -4,7 +4,7 @@ import { useAuth } from '@clerk/nextjs'
 import { useStore } from '@/store/useStore'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
-import { FaBookReader, FaEdit, FaTrashAlt } from 'react-icons/fa'
+import { FaBookReader, FaEdit } from 'react-icons/fa'
 import Loading from './make/[userId]/loading'
 import DeleteBlogDialog from '@/components/DeleteAlert'
 
@@ -24,10 +24,6 @@ const Page = () => {
     setLoading(true)
     fetchData(userId)
   }, [])
-
-  const deletePost = async () => {
-    return <h2>Hello world</h2>
-  }
 
   if (loading) return <Loading />
 
@@ -70,18 +66,11 @@ const Page = () => {
                   </Button>
                   <div className='flex space-x-2'>
                     <Button
-                      className='hover:bg-gray-700 hover:text-white'
-                      variant='secondary'
+                      className='bg-gray-800 hover:bg-gray-700 hover:text-white'
+                      variant='ghost'
                     >
                       Edit <FaEdit className='ml-2' />
                     </Button>
-                    {/* <Button
-                      className='hover:bg-red-500 hover:text-white'
-                      variant='destructive'
-                      onClick={()=>deletePost}
-                    >
-                      Delete <FaTrashAlt className='ml-2' />
-                    </Button> */}
                     <DeleteBlogDialog blogId={data.id} />
                   </div>
                 </div>
