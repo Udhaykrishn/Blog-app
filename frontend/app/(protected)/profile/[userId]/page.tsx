@@ -21,7 +21,7 @@ const Page = () => {
             <p>{user.email}</p>
             <p>{user.firstName}</p>
             <p>{user.lastName}</p>
-            <img className='h-[200px] w-[200px]' src={user.image_url} />
+            <img className='h-[200px] w-[200px]' src={user?.image_url} />
             {blogCount && <p>Blog Count: {blogCount}</p>}
           </>
         )}

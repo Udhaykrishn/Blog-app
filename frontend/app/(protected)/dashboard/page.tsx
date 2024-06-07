@@ -7,7 +7,6 @@ const page = () => {
   const router = useRouter()
 
   const navigateToProfile = (userId: string) => {
-    console.log(userId)
     router.push(`/profile/${userId}`)
   }
 
