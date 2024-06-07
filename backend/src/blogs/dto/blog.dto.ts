@@ -2,8 +2,6 @@ import {
   IsString,
   IsOptional,
   IsNotEmpty,
-  isInt,
-  IsInt,
 } from "class-validator";
 export class CreateBlogDto {
   @IsString()

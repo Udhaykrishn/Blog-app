@@ -10,21 +10,21 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card'
-import { IBlog, IUser } from '@/store/types/IBlog'
+import { IBlog, IUserBlog } from '@/store/types/IBlog'
 import { ProfileAvatar } from './ProfileAvatar'
 import { FaBookReader } from 'react-icons/fa'
 
 type CardsProps = {
-  user: IUser
+  user: IUserBlog
   blog: IBlog
   profileLink: (userId: string) => void
 }
 
 export default function Cards({ user, blog, profileLink }: CardsProps) {
   return (
-    <Card className='mt-3 w-[350px] md:w-[600px]'>
+    <Card className='mt-3 w-[300px] md:w-[400px]'>
       <CardHeader>
-        <ProfileAvatar image_url={user?.image_url} name={user.firstName} />
+        <ProfileAvatar image_url={user?.image_url} name={user.firstName } />
         <CardTitle>
           <Button onClick={() => profileLink(user.userId)} variant={'link'}>
             {user.firstName}

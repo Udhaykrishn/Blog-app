@@ -24,6 +24,10 @@ const Page = () => {
     fetchData(userId)
   }, [getAllBlogById, userId])
 
+  const deletePost = async()=>{
+    return <h2>Hello world</h2>
+  }
+
   if (loading) return <Loading />
 
   return (
@@ -73,6 +77,7 @@ const Page = () => {
                     <Button
                       className='hover:bg-red-500 hover:text-white'
                       variant='destructive'
+                      onClick={()=>deletePost}
                     >
                       Delete <FaTrashAlt className='ml-2' />
                     </Button>

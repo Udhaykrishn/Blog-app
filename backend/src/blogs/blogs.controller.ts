@@ -15,8 +15,9 @@ import { CreateBlogDto, UpdateBlogDto } from "./dto";
 export class BlogsController {
   constructor(private readonly blogsService: BlogsService) {}
 
-  @Post(":id")
-  createBlog(@Param("id") id: string, @Body() createDto: CreateBlogDto) {
+  @Post(":userId")
+  createBlog(@Param("userId") id: string, @Body() createDto: CreateBlogDto) {
+    console.log(id,createDto)
     return this.blogsService.createBlog(createDto, id);
   }
 

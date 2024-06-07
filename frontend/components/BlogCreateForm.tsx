@@ -4,7 +4,8 @@ import { z } from 'zod'
 import { EditorState, convertToRaw } from 'draft-js'
 import TipTapEditor from './TipTapEditor'
 import axios from 'axios'
-import { useParams } from 'next/navigation'
+import { useParams, redirect, useRouter } from 'next/navigation'
+import { revalidatePath } from 'next/cache'
 
 type BlogFormData = {
   title: string
@@ -15,7 +16,7 @@ const titleSchema = z.string().min(1, 'Title is required')
 const contentSchema = z.string().min(1, 'Content is required')
 
 const BlogCreateForm: React.FC = () => {
-  const {userId} = useParams<{userId:string}>()
+  const { userId } = useParams<{ userId: string }>()
   const [formData, setFormData] = useState<BlogFormData>({
     title: '',
     content: EditorState.createEmpty()
@@ -30,6 +31,7 @@ const BlogCreateForm: React.FC = () => {
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const router = useRouter()
     e.preventDefault()
 
     const titleResult = titleSchema.safeParse(formData.title)
@@ -42,17 +44,24 @@ const BlogCreateForm: React.FC = () => {
     }
 
     const contentRaw = convertToRaw(formData.content.getCurrentContent())
-
+    const stringContext = JSON.stringify(contentRaw)
     const requestData = {
       title: formData.title,
-      content: JSON.stringify(contentRaw)
+      description: stringContext
     }
-
-    const reponse = await axios.post(
-      `http://localhost:3000/blogs/${userId}`,
-      requestData
-    )
-    console.log(reponse.data)
+    try {
+      console.log(userId)
+      const reponse = await axios.post(
+        `http://localhost:3000/blogs/${userId}`,
+        requestData
+      )
+      if (reponse.data) {
+        router.push('/blogs')
+      }
+    } catch (error: any) {
+      console.error('Error fetching data', error.message)
+    }
+    console.log(typeof requestData.description)
   }
 
   return (

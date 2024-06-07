@@ -15,12 +15,12 @@ const BlogList = ({ profileLink }: ProfileProps) => {
   }, [fetchAllBlogs])
 
   return (
-    <div className='flex h-screen w-full items-center justify-center'>
-      <ul>
+    <div className='flex h-screen w-full items-center justify-center '>
+      <div className='gap-4 grid grid-cols-3 '>
         {blogs.map(blog => (
           <Cards user={blog.user} blog={blog} profileLink={profileLink} />
         ))}
-      </ul>
+      </div>
     </div>
   )
 }
