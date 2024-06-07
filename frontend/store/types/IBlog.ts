@@ -1,4 +1,4 @@
-interface ICount {
+export interface ICount {
   blogs: number
 }
 

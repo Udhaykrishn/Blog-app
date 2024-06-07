@@ -31,7 +31,6 @@ export class BlogRepository {
       where: {
         user: { userId: userID },
       },
-      include: { user: true },
     });
   }
 
