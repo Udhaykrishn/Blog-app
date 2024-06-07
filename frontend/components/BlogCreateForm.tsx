@@ -1,11 +1,15 @@
 'use client'
 import React, { useState } from 'react'
 import { z } from 'zod'
-import { EditorState, convertToRaw } from 'draft-js'
+import {
+  EditorState,
+  convertToRaw,
+  convertFromRaw
+} from 'draft-js'
 import TipTapEditor from './TipTapEditor'
 import axios from 'axios'
-import { useParams, redirect, useRouter } from 'next/navigation'
-import { revalidatePath } from 'next/cache'
+import { useParams, useRouter } from 'next/navigation'
+import { toast } from 'react-toastify'
 
 type BlogFormData = {
   title: string
@@ -17,6 +21,7 @@ const contentSchema = z.string().min(1, 'Content is required')
 
 const BlogCreateForm: React.FC = () => {
   const { userId } = useParams<{ userId: string }>()
+  const router = useRouter()
   const [formData, setFormData] = useState<BlogFormData>({
     title: '',
     content: EditorState.createEmpty()
@@ -31,7 +36,6 @@ const BlogCreateForm: React.FC = () => {
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    const router = useRouter()
     e.preventDefault()
 
     const titleResult = titleSchema.safeParse(formData.title)
@@ -50,18 +54,23 @@ const BlogCreateForm: React.FC = () => {
       description: stringContext
     }
     try {
-      console.log(userId)
-      const reponse = await axios.post(
+      const response = await axios.post(
         `http://localhost:3000/blogs/${userId}`,
         requestData
       )
-      if (reponse.data) {
+      if (response.data) {
+        toast.success('Successfully created')
+        // Clear the form data
+        setFormData({
+          title: '',
+          content: EditorState.createEmpty()
+        })
+        // Redirect to the blogs page
         router.push('/blogs')
       }
     } catch (error: any) {
       console.error('Error fetching data', error.message)
     }
-    console.log(typeof requestData.description)
   }
 
   return (
