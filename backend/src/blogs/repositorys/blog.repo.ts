@@ -49,4 +49,12 @@ export class BlogRepository {
       where: { id: Blogid },
     });
   }
+
+  async getBlogById(BlogId:number):Promise<Blog>{
+    return this.prisma.blog.findUnique({
+      where:{
+        id:BlogId
+      }
+    })
+  }
 }

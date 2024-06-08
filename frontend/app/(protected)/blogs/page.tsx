@@ -5,7 +5,7 @@ import { useStore } from '@/store/useStore'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
 import { FaBookReader, FaEdit } from 'react-icons/fa'
-import Loading from './make/[userId]/loading'
+import Loading from '@/components/Loading'
 import DeleteBlogDialog from '@/components/DeleteAlert'
 
 const Page = () => {
@@ -68,6 +68,7 @@ const Page = () => {
                     <Button
                       className='bg-gray-800 hover:bg-gray-700 hover:text-white'
                       variant='ghost'
+                      onClick={() => router.push(`/blogs/edit/${data.id}}`)}
                     >
                       Edit <FaEdit className='ml-2' />
                     </Button>

@@ -25,4 +25,7 @@ export class BlogsService {
   async deleteBlog(id: number) {
     return this.blogRepository.delete(id);
   }
+  async getBlogById(id:number){
+    return this.blogRepository.getBlogById(id)
+  }
 }

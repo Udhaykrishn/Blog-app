@@ -27,8 +27,13 @@ export class BlogsController {
   }
 
   @Get(":id")
-  getBlogById(@Param("id") id: string) {
+  getUsersBlogById(@Param("id") id: string) {
     return this.blogsService.findAllBlogsByUserID(id);
+  }
+
+  @Get("edit/:id")
+  getBlogById(@Param("id",ParseIntPipe) id:number){
+    return this.blogsService.getBlogById(id)
   }
 
   @Patch(":id")

@@ -35,7 +35,7 @@ const DeleteBlogDialog = ({ blogId }: { blogId: string }) => {
     <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <AlertDialogTrigger asChild>
         <Button variant='outline' className='hover:bg-red-500 hover:text-white'>
-          <FaTrashAlt className='mr-2' />  Delete
+          <FaTrashAlt className='mr-2' /> Delete
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
