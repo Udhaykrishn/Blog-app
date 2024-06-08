@@ -6,6 +6,7 @@ import TipTapEditor from './TipTapEditor'
 import axios from 'axios'
 import { useParams, useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
+import { ErrorHandle } from './ErrorHandle'
 
 type BlogFormData = {
   title: string
@@ -56,16 +57,15 @@ const BlogCreateForm: React.FC = () => {
       )
       if (response.data) {
         toast.success('Successfully created')
-        // Clear the form data
         setFormData({
           title: '',
           content: EditorState.createEmpty()
         })
-        // Redirect to the blogs page
+
         router.push('/blogs')
       }
     } catch (error: any) {
-      console.error('Error fetching data', error.message)
+      ErrorHandle(error)
     }
   }
 

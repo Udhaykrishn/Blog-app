@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation'
 import { FaBookReader, FaEdit } from 'react-icons/fa'
 import Loading from '@/components/Loading'
 import DeleteBlogDialog from '@/components/DeleteAlert'
+import { ErrorHandle } from '@/components/ErrorHandle'
 
 const Page = () => {
   const { userId } = useAuth()
@@ -16,9 +17,14 @@ const Page = () => {
 
   useEffect(() => {
     async function fetchData(userId: any) {
-      if (userId) {
-        await getAllBlogById(userId)
-        setLoading(false)
+      try {
+        if (userId) { 
+          await getAllBlogById(userId)
+          setLoading(false)
+        }
+      } catch (error) {
+        ErrorHandle(error)
+        setLoading(true)
       }
     }
     setLoading(true)

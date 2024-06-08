@@ -13,12 +13,11 @@ import {
   AlertDialogFooter
 } from './ui/alert-dialog'
 import { Button } from './ui/button'
-import { useRouter } from 'next/navigation'
 import { FaTrashAlt } from 'react-icons/fa'
+import { ErrorHandle } from './ErrorHandle'
 
 const DeleteBlogDialog = ({ blogId }: { blogId: string }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
-  const router = useRouter()
   const handleDelete = async () => {
     try {
       await axios.delete(`http://localhost:3000/blogs/${blogId}`)
@@ -26,8 +25,7 @@ const DeleteBlogDialog = ({ blogId }: { blogId: string }) => {
       window.location.reload()
       setIsDialogOpen(false)
     } catch (error) {
-      toast.error('Error deleting blog')
-      console.error('Error deleting blog:', error)
+      ErrorHandle(error)
     }
   }
 

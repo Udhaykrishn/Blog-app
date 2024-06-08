@@ -13,7 +13,6 @@ import {
 import { IBlog, IUserBlog } from '@/store/types/IBlog'
 import { ProfileAvatar } from './ProfileAvatar'
 import { FaBookReader } from 'react-icons/fa'
-import { Router } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 
 type CardsProps = {

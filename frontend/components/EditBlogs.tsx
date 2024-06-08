@@ -7,6 +7,7 @@ import axios from 'axios'
 import { useParams, useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 import Loading from './Loading'
+import { ErrorHandle } from './ErrorHandle'
 
 type BlogFormData = {
   title: string
@@ -36,7 +37,7 @@ const EditBlogpage = ({ id }: { id: string }) => {
             const rawContent = JSON.parse(description)
             content = EditorState.createWithContent(convertFromRaw(rawContent))
           } catch (error) {
-            console.error('Invalid JSON in description:', error)
+            ErrorHandle(error)
           }
         }
 
@@ -45,7 +46,7 @@ const EditBlogpage = ({ id }: { id: string }) => {
           content: content
         })
       } catch (error) {
-        console.error('Error fetching data', error)
+        ErrorHandle(error)
       } finally {
         setLoading(false)
       }
@@ -91,7 +92,7 @@ const EditBlogpage = ({ id }: { id: string }) => {
         router.push('/blogs')
       }
     } catch (error: any) {
-      console.error('Error submitting data', error.message)
+      ErrorHandle(error)
     }
   }
 

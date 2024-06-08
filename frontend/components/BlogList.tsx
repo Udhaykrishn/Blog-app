@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { useStore } from '@/store/useStore'
 import Cards from './Cards'
 import Loading from './Loading'
+import { ErrorHandle } from './ErrorHandle'
 
 type ProfileProps = {
   profileLink: (userId: string) => void
@@ -14,8 +15,13 @@ const BlogList = ({ profileLink }: ProfileProps) => {
 
   useEffect(() => {
     async function fetchdata() {
-      await fetchAllBlogs()
-      setLoading(false)
+      
+      try {
+        await fetchAllBlogs()
+      setLoading(false)  
+      } catch (error) {
+        ErrorHandle(error)
+      }
     }
     setLoading(true)
     fetchdata()
