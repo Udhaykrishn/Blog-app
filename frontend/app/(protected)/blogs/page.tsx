@@ -68,7 +68,7 @@ const Page = () => {
                     <Button
                       className='bg-gray-800 hover:bg-gray-700 hover:text-white'
                       variant='ghost'
-                      onClick={() => router.push(`/blogs/edit/${data.id}}`)}
+                      onClick={() => router.push(`/blogs/edit/${data.id}`)}
                     >
                       Edit <FaEdit className='ml-2' />
                     </Button>

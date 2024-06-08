@@ -5,11 +5,10 @@ import React from 'react'
 import { useParams } from 'next/navigation'
 
 const page = () => {
-  const { userId } = useParams<{ userId: string }>()
-  console.log(userId[0])
+  const { blogId } = useParams<{ blogId: string }>()
   return (
     <div className='container'>
-      <EditBlogs id={userId[0]} />
+      <EditBlogs id={blogId} />
     </div>
   )
 }

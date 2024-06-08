@@ -17,7 +17,6 @@ const titleSchema = z.string().min(1)
 const contentSchema = z.string().min(1)
 
 const EditBlogpage = ({ id }: { id: string }) => {
-  const { userId } = useParams<{ userId: string }>()
   const router = useRouter()
   const [formData, setFormData] = useState<BlogFormData>({
     title: '',
@@ -42,7 +41,7 @@ const EditBlogpage = ({ id }: { id: string }) => {
         }
 
         setFormData({
-          title: title,
+          title: title ?? '',
           content: content
         })
       } catch (error) {
@@ -84,7 +83,7 @@ const EditBlogpage = ({ id }: { id: string }) => {
     }
     try {
       const response = await axios.patch(
-        `http://localhost:3000/blogs/edit/${id}`,
+        `http://localhost:3000/blogs/${id}`,
         requestData
       )
       if (response.data) {
@@ -113,7 +112,7 @@ const EditBlogpage = ({ id }: { id: string }) => {
           required
           className='w-full appearance-none rounded border bg-gray-700 px-3 py-2 leading-tight text-white shadow focus:outline-none'
         />
-        {formData.title.length === 0 && (
+        {formData.title?.length === 0 && (
           <p className='mt-1 text-sm text-red-500 dark:text-red-400'>
             Title is required
           </p>
