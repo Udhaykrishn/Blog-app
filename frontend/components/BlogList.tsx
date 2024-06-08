@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react'
 import { useStore } from '@/store/useStore'
 import Cards from './Cards'
-import Loading from '@/app/(protected)/blogs/make/[userId]/loading'
+import Loading from './Loading'
 
 type ProfileProps = {
   profileLink: (userId: string) => void
