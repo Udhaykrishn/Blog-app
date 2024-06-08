@@ -13,6 +13,8 @@ import {
 import { IBlog, IUserBlog } from '@/store/types/IBlog'
 import { ProfileAvatar } from './ProfileAvatar'
 import { FaBookReader } from 'react-icons/fa'
+import { Router } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 type CardsProps = {
   user: IUserBlog
@@ -21,6 +23,7 @@ type CardsProps = {
 }
 
 export default function Cards({ user, blog, profileLink }: CardsProps) {
+  const router = useRouter()
   return (
     <Card className='mt-3 w-[300px] md:w-[400px]'>
       <CardHeader>
@@ -34,8 +37,11 @@ export default function Cards({ user, blog, profileLink }: CardsProps) {
       </CardHeader>
       <CardContent></CardContent>
       <CardFooter className='flex justify-between'>
-        <Button onClick={() => alert(blog?.description)} variant='default'>
-          <FaBookReader />
+        <Button className='hover:bg-sky-400'
+          onClick={() => router.push(`/blogs/read/${blog.id}`)}
+          variant='default'
+        >
+          <FaBookReader className='mr-2' />
           Read
         </Button>
       </CardFooter>

@@ -61,6 +61,7 @@ const Page = () => {
                   <Button
                     className='mr-2 hover:bg-sky-500 hover:text-white'
                     variant='secondary'
+                    onClick={() => router.push(`/blogs/read/${data.id}`)}
                   >
                     Read <FaBookReader className='ml-2' />
                   </Button>
