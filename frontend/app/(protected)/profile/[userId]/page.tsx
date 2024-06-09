@@ -7,11 +7,11 @@ import { Badge } from '@/components/ui/badge'
 import Loading from '@/components/Loading'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
-import { FaHeading } from 'react-icons/fa'
-import { FaBookReader } from 'react-icons/fa'
+import { FaHeading, FaBookReader } from 'react-icons/fa'
+import { ErrorHandle } from '@/components/ErrorHandle'
 
 const Page = () => {
-  const { userId } = useParams<{ userId: string }>()
+  const { userId } = useParams() as { userId: string }
   const { user, blogs, fetchUserById, getAllBlogById } = useStore()
   const [loading, setLoading] = useState<boolean>(true)
   const router = useRouter()
@@ -22,23 +22,28 @@ const Page = () => {
         await fetchUserById(userId)
         await getAllBlogById(userId)
       } catch (error: any) {
-        console.error('Error Fetching Data ', error.message)
+        ErrorHandle(error)
       } finally {
         setLoading(false)
       }
     }
     fetchData()
-  }, [userId, fetchUserById])
+  }, [userId, fetchUserById, getAllBlogById])
 
   if (loading) {
     return <Loading />
   }
-
   let blogCount = 0
+
   if (!Array.isArray(user)) blogCount = user._count.blogs
 
   const handleBlogRead = (blogId: string) => {
     router.push(`/blogs/read/${blogId}`)
+  }
+
+
+  if (!Array.isArray(user)) {
+    blogCount = user._count.blogs
   }
 
   return (
@@ -76,7 +81,7 @@ const Page = () => {
             )}
           </CardContent>
           <h3 className='mb-4 text-xl font-semibold'>
-            {user?.firstName}'s Blogs
+            {user.firstName}'s Blogs
           </h3>
           <CardFooter className='p-4'>
             <>
@@ -84,9 +89,8 @@ const Page = () => {
                 <div key={data.id} className='h-16 w-full'>
                   <div className='mb-4 '>
                     <div className='flex items-center justify-between'>
-                      <p className='flex items-center text-lg font-medium '>
-                        {' '}
-                        <FaHeading className='mr-3' />#{data.title}
+                      <p className='flex items-center text-lg font-medium'>
+                        <FaHeading className='mr-3' /> #{data.title}
                       </p>
                       <Button onClick={() => handleBlogRead(data.id)}>
                         <FaBookReader className='mr-2' />

@@ -5,6 +5,8 @@ import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import Loading from '@/components/Loading'
 import { useAuth } from '@clerk/nextjs'
+import { ErrorHandle } from '@/components/ErrorHandle'
+import { IUser } from '@/store/types/IBlog'
 
 const Page = () => {
   const { userId } = useAuth()
@@ -16,7 +18,7 @@ const Page = () => {
       try {
         await fetchUserById(userId)
       } catch (error: any) {
-        console.error('Error Fetching Data ', error.message)
+        ErrorHandle(error)
       } finally {
         setLoading(false)
       }
@@ -70,6 +72,7 @@ const Page = () => {
             </p>
           </CardFooter>
         </Card>
+        // <p>Hello world</p>
       )}
     </div>
   )
