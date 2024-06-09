@@ -1,15 +1,21 @@
 import { StateCreator } from 'zustand'
 import { IProfileStore } from '../types/IProfile'
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
+import { IUser } from '../types/IBlog'
+import { ErrorHandle } from '@/components/ErrorHandle'
 
 export const ProflieSlice: StateCreator<IProfileStore> = set => ({
-  user: [],
+  info: [],
   fetchUserById: async (clerkId: string) => {
     try {
-      const res = await axios.get(`https://blog-backend-ts07.onrender.com/user/${clerkId}`)
-      set({ user: res.data })
+      const res:AxiosResponse<IUser,any> = await axios.get(`https://blog-backend-ts07.onrender.com/user/${clerkId}`)
+      if(Array.isArray(res.data)){
+        set({info: [...res.data]})
+      }else{
+        set({info:res.data})
+      }
     } catch (error: any) {
-      console.error('Error', error.message)
+      ErrorHandle(error)
     }
   }
 })

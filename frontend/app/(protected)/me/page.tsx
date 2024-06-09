@@ -5,10 +5,12 @@ import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import Loading from '@/components/Loading'
 import { useAuth } from '@clerk/nextjs'
+import { ErrorHandle } from '@/components/ErrorHandle'
+import { IUser } from '@/store/types/IBlog'
 
 const Page = () => {
   const { userId } = useAuth()
-  const { user, fetchUserById } = useStore()
+  const { info, fetchUserById } = useStore()
   const [loading, setLoading] = useState<boolean>(true)
 
   useEffect(() => {
@@ -16,7 +18,7 @@ const Page = () => {
       try {
         await fetchUserById(userId)
       } catch (error: any) {
-        console.error('Error Fetching Data ', error.message)
+        ErrorHandle(error)
       } finally {
         setLoading(false)
       }
@@ -27,25 +29,27 @@ const Page = () => {
   if (loading) {
     return <Loading />
   }
-
-  const blogCount = user?._count?.blogs
+  let blogCount = 0
+  if (!Array.isArray(info)) {
+    blogCount = info._count.blogs
+  }
 
   return (
     <div className='container mx-auto mt-10 p-4'>
-      {user && (
+      {!Array.isArray(info) && (
         <Card className='mx-auto max-w-lg border-none shadow-lg'>
           <CardHeader className='p-4'>
             <div className='flex items-center'>
               <img
                 className='h-24 w-24 rounded-full border-2 border-gray-300'
-                src={user?.image_url}
-                alt={`${user?.firstName} ${user?.lastName}`}
+                src={info?.image_url}
+                alt={`${info?.firstName} ${info?.lastName}`}
               />
               <div className='ml-6'>
                 <h2 className='text-3xl font-semibold'>
-                  {user?.firstName} {user?.lastName}
+                  {info?.firstName} {info?.lastName}
                 </h2>
-                <p className='text-gray-600'>{user?.email}</p>
+                <p className='text-gray-600'>{info?.email}</p>
               </div>
             </div>
           </CardHeader>
@@ -68,6 +72,7 @@ const Page = () => {
             </p>
           </CardFooter>
         </Card>
+        // <p>Hello world</p>
       )}
     </div>
   )
