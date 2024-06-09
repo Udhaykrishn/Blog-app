@@ -52,7 +52,7 @@ const BlogCreateForm: React.FC = () => {
     }
     try {
       const response = await axios.post(
-        `http://localhost:3000/blogs/${userId}`,
+        `https://blog-backend-ts07.onrender.com/blogs/${userId}`,
         requestData
       )
       if (response.data) {

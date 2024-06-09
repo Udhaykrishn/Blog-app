@@ -19,7 +19,7 @@ const ReadBlogPage = () => {
     const fetchBlog = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/blogs/edit/${blogId}`
+          `https://blog-backend-ts07.onrender.com/blogs/edit/${blogId}`
         )
         setLoading(false)
         const { title, description } = response.data

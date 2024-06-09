@@ -28,7 +28,7 @@ const EditBlogpage = ({ id }: { id: string }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/blogs/edit/${id}`)
+        const res = await axios.get(`https://blog-backend-ts07.onrender.com/blogs/edit/${id}`)
         const { title, description } = res.data
 
         let content = EditorState.createEmpty()
@@ -84,7 +84,7 @@ const EditBlogpage = ({ id }: { id: string }) => {
     }
     try {
       const response = await axios.patch(
-        `http://localhost:3000/blogs/${id}`,
+        `https://blog-backend-ts07.onrender.com/blogs/${id}`,
         requestData
       )
       if (response.data) {

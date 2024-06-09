@@ -20,7 +20,7 @@ const DeleteBlogDialog = ({ blogId }: { blogId: string }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:3000/blogs/${blogId}`)
+      await axios.delete(`https://blog-backend-ts07.onrender.com/blogs/${blogId}`)
       toast.success('Blog deleted successfully')
       window.location.reload()
       setIsDialogOpen(false)

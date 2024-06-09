@@ -1,6 +1,7 @@
 import {
   Controller,
   Post,
+  Get,
   Req,
   Res,
   BadRequestException,
@@ -19,6 +20,11 @@ export class AppController {
     private readonly userService: UserService,
     private readonly config: ConfigService
   ) {}
+
+  @Get()
+  async getHello(){
+    return "Hello this is working";
+  }
 
   @Post()
   async webhook(@Req() req: Request, @Res() response: Response) {
