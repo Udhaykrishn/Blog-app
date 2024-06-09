@@ -34,7 +34,8 @@ const Page = () => {
     return <Loading />
   }
 
-  const blogCount = user?._count?.blogs
+  let blogCount = 0
+  if (!Array.isArray(user)) blogCount = user._count.blogs
 
   const handleBlogRead = (blogId: string) => {
     router.push(`/blogs/read/${blogId}`)
@@ -42,8 +43,10 @@ const Page = () => {
 
   return (
     <div className='container mx-auto mt-10 p-4'>
-      {user && (
-        <Card className='mx-auto max-w-lg border-none shadow-lg'>
+      {!Array.isArray(user) && (
+        <Card
+          className='mx-auto max-w-lg border-none shadow-lg'
+        >
           <CardHeader className='p-4'>
             <div className='flex items-center'>
               <img
@@ -78,8 +81,8 @@ const Page = () => {
           <CardFooter className='p-4'>
             <>
               {blogs.map(data => (
-                <div className='h-16 w-full'>
-                  <div key={data.id} className='mb-4 '>
+                <div key={data.id} className='h-16 w-full'>
+                  <div className='mb-4 '>
                     <div className='flex items-center justify-between'>
                       <p className='flex items-center text-lg font-medium '>
                         {' '}
@@ -96,6 +99,7 @@ const Page = () => {
             </>
           </CardFooter>
         </Card>
+        // <p>Hello world</p>
       )}
     </div>
   )

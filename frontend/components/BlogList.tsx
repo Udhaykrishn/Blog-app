@@ -38,7 +38,7 @@ const BlogList = ({ profileLink }: ProfileProps) => {
     <div className='flex h-screen w-full items-center justify-center '>
       <div className='grid grid-cols-3 gap-4 '>
         {blogs.map(blog => (
-          <Cards user={blog.user} blog={blog} profileLink={profileLink} />
+          <Cards key={blog.id} user={blog.user} blog={blog} profileLink={profileLink} />
         ))}
       </div>
     </div>

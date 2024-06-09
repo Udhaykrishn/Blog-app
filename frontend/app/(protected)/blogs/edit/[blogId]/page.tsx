@@ -8,7 +8,7 @@ const page = () => {
   const { blogId } = useParams<{ blogId: string }>()
   return (
     <div className='container'>
-      <EditBlogs id={blogId} />
+      <EditBlogs key={blogId} id={blogId} />
     </div>
   )
 }

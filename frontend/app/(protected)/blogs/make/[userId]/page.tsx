@@ -5,7 +5,7 @@ import BlogCreateForm from '@/components/BlogCreateForm'
 const page = () => {
   return (
     <>
-      <BlogCreateForm />
+      <BlogCreateForm  />
     </>
   )
 }

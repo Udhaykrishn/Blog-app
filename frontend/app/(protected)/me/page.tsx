@@ -28,11 +28,13 @@ const Page = () => {
     return <Loading />
   }
 
-  const blogCount = user?._count?.blogs
+  let blogCount = 0
+
+  if (!Array.isArray(user)) blogCount = user._count.blogs
 
   return (
     <div className='container mx-auto mt-10 p-4'>
-      {user && (
+      {!Array.isArray(user) && (
         <Card className='mx-auto max-w-lg border-none shadow-lg'>
           <CardHeader className='p-4'>
             <div className='flex items-center'>
