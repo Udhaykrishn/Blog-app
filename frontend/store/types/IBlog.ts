@@ -1,5 +1,6 @@
 export interface ICount {
   blogs: number
+  [key:string]:any
 }
 
 export interface IUserBlog{

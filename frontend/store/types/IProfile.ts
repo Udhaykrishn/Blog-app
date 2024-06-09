@@ -1,6 +1,6 @@
 import { IUser } from './IBlog'
 
 export type IProfileStore = {
-  user: IUser
+  info: IUser[] | IUser
   fetchUserById: (clerkId:string) => Promise<void>
 }

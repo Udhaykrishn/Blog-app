@@ -7,12 +7,12 @@ import { Badge } from '@/components/ui/badge'
 import Loading from '@/components/Loading'
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
-import { FaHeading } from 'react-icons/fa'
-import { FaBookReader } from 'react-icons/fa'
+import { FaHeading, FaBookReader } from 'react-icons/fa'
+import { ErrorHandle } from '@/components/ErrorHandle'
 
 const Page = () => {
-  const { userId } = useParams<{ userId: string }>()
-  const { user, blogs, fetchUserById, getAllBlogById } = useStore()
+  const { userId } = useParams() as { userId: string }
+  const { info, blogs, fetchUserById, getAllBlogById } = useStore()
   const [loading, setLoading] = useState<boolean>(true)
   const router = useRouter()
 
@@ -22,40 +22,44 @@ const Page = () => {
         await fetchUserById(userId)
         await getAllBlogById(userId)
       } catch (error: any) {
-        console.error('Error Fetching Data ', error.message)
+        ErrorHandle(error)
       } finally {
         setLoading(false)
       }
     }
     fetchData()
-  }, [userId, fetchUserById])
+  }, [userId, fetchUserById, getAllBlogById])
 
   if (loading) {
     return <Loading />
   }
 
-  const blogCount = user?._count?.blogs
-
   const handleBlogRead = (blogId: string) => {
     router.push(`/blogs/read/${blogId}`)
   }
 
+  let blogCount = 0
+
+  if (!Array.isArray(info)) {
+    blogCount = info._count.blogs
+  }
+
   return (
     <div className='container mx-auto mt-10 p-4'>
-      {user && (
+      {!Array.isArray(info) && (
         <Card className='mx-auto max-w-lg border-none shadow-lg'>
           <CardHeader className='p-4'>
             <div className='flex items-center'>
               <img
                 className='h-24 w-24 rounded-full border-2 border-gray-300'
-                src={user?.image_url}
-                alt={`${user?.firstName} ${user?.lastName}`}
+                src={info?.image_url}
+                alt={`${info?.firstName} ${info?.lastName}`}
               />
               <div className='ml-6'>
                 <h2 className='text-3xl font-semibold'>
-                  {user?.firstName} {user?.lastName}
+                  {info?.firstName} {info?.lastName}
                 </h2>
-                <p className='text-gray-600'>{user?.email}</p>
+                <p className='text-gray-600'>{info?.email}</p>
               </div>
             </div>
           </CardHeader>
@@ -73,17 +77,16 @@ const Page = () => {
             )}
           </CardContent>
           <h3 className='mb-4 text-xl font-semibold'>
-            {user?.firstName}'s Blogs
+            {info.firstName}'s Blogs
           </h3>
           <CardFooter className='p-4'>
             <>
               {blogs.map(data => (
-                <div className='h-16 w-full'>
-                  <div key={data.id} className='mb-4 '>
+                <div className='h-16 w-full' key={data.id}>
+                  <div className='mb-4'>
                     <div className='flex items-center justify-between'>
-                      <p className='flex items-center text-lg font-medium '>
-                        {' '}
-                        <FaHeading className='mr-3' />#{data.title}
+                      <p className='flex items-center text-lg font-medium'>
+                        <FaHeading className='mr-3' /> #{data.title}
                       </p>
                       <Button onClick={() => handleBlogRead(data.id)}>
                         <FaBookReader className='mr-2' />
@@ -96,6 +99,7 @@ const Page = () => {
             </>
           </CardFooter>
         </Card>
+        // <p>Hello world</p>
       )}
     </div>
   )
